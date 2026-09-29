@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Onboarding | Custom CRM</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="onboard.css?v=20260929" />
+</head>
+<body>
+  <main class="onboarding-shell">
+    <header class="onboarding-header">
+      <div class="brand-block">
+        <img src="https://raw.githubusercontent.com/cxdemosc-ui/sampleCRM/main/CRM_sample_image.png"
+             alt="Custom CRM" class="crm-icon" />
+        <div>
+          <span class="eyebrow">CUSTOM CRM</span>
+          <h1>New Customer Onboarding</h1>
+          <p>Enter personal details. Account and card information will be generated automatically.</p>
+        </div>
+      </div>
+      <a href="index.html" class="btn btn-outline-secondary btn-sm">Back to CRM</a>
+    </header>
+
+    <section class="onboarding-card">
+      <div class="section-heading">
+        <div class="step-number">1</div>
+        <div>
+          <h2>Personal details</h2>
+          <p>Fields marked with <span aria-hidden="true">*</span> are required.</p>
+        </div>
+      </div>
+
+      <div id="onboardingMessage" class="alert" role="status" aria-live="polite" hidden></div>
+
+      <form id="onboardingForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="firstName">First name *</label>
+            <input id="firstName" name="firstName" class="form-control" maxlength="80" autocomplete="given-name" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last name *</label>
+            <input id="lastName" name="lastName" class="form-control" maxlength="80" autocomplete="family-name" required />
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of birth *</label>
+            <input id="dob" name="dob" type="date" class="form-control" autocomplete="bday" required />
+          </div>
+          <div class="form-group">
+            <label for="mobile">Mobile number *</label>
+            <input id="mobile" name="mobile" type="tel" class="form-control" maxlength="20" autocomplete="tel" placeholder="e.g. 91234567" required />
+          </div>
+          <div class="form-group">
+            <label for="alternateMobile">Alternate mobile</label>
+            <input id="alternateMobile" name="alternateMobile" type="tel" class="form-control" maxlength="20" autocomplete="tel-national" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" class="form-control" maxlength="160" autocomplete="email" />
+          </div>
+          <div class="form-group form-group-wide">
+            <label for="address">Address *</label>
+            <input id="address" name="address" class="form-control" maxlength="200" autocomplete="street-address" required />
+          </div>
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input id="city" name="city" class="form-control" maxlength="80" autocomplete="address-level2" required />
+          </div>
+        </div>
+
+        <aside class="auto-generated-note">
+          <strong>Generated automatically</strong>
+          <span>Customer ID, account number, opening balance, debit card and credit card.</span>
+        </aside>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-light">Clear</button>
+          <button id="submitOnboarding" type="submit" class="btn btn-primary">Create Customer</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="onboardingResult" class="result-card" hidden>
+      <div class="result-icon" aria-hidden="true">✓</div>
+      <div>
+        <span class="eyebrow">ONBOARDING COMPLETE</span>
+        <h2>Customer created successfully</h2>
+        <div class="result-grid">
+          <div><span>Customer ID</span><strong id="resultCustomerId"></strong></div>
+          <div><span>Account number</span><strong id="resultAccount"></strong></div>
+          <div><span>Debit card</span><strong id="resultDebitCard"></strong></div>
+          <div><span>Credit card</span><strong id="resultCreditCard"></strong></div>
+        </div>
+        <a id="openCustomerLink" href="index.html" class="btn btn-success mt-3">Open customer in CRM</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="onboard.js?v=20260929"></script>
+</body>
+</html>
