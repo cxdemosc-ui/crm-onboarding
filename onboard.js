@@ -36,15 +36,29 @@ function buildPayload() {
   };
 }
 
-function renderResult(created, mobile) {
+function renderResult(created, customer) {
+  const timestamp = new Date();
+  document.getElementById('resultReference').textContent = `ONB-${created.out_customer_id ?? timestamp.getTime()}`;
+  document.getElementById('resultCreatedAt').textContent = timestamp.toLocaleString('en-SG');
+  document.getElementById('resultName').textContent = `${customer.p_first_name} ${customer.p_last_name}`;
+  document.getElementById('resultMobile').textContent = customer.p_mobile_no;
+  document.getElementById('resultEmail').textContent = customer.p_email || 'Not provided';
+  document.getElementById('resultAddress').textContent = `${customer.p_address}, ${customer.p_city}`;
   document.getElementById('resultCustomerId').textContent = created.out_customer_id ?? 'Created';
   document.getElementById('resultAccount').textContent = created.out_account_number ?? 'Generated';
   document.getElementById('resultDebitCard').textContent = maskCard(created.out_debit_card_number);
   document.getElementById('resultCreditCard').textContent = maskCard(created.out_credit_card_number);
-  document.getElementById('openCustomerLink').href = `index.html?mobileNo=${encodeURIComponent(mobile)}`;
   result.hidden = false;
   result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+document.getElementById('printConfirmation').addEventListener('click', () => window.print());
+
+document.getElementById('startNewOnboarding').addEventListener('click', () => {
+  clearFeedback();
+  form.reset();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 form.addEventListener('reset', clearFeedback);
 
@@ -81,7 +95,7 @@ form.addEventListener('submit', async event => {
     const created = Array.isArray(body) ? body[0] : body;
     form.reset();
     showMessage('Customer onboarding completed successfully.', 'success');
-    renderResult(created || {}, payload.p_mobile_no);
+    renderResult(created || {}, payload);
   } catch (error) {
     showMessage(error.message || 'Unable to create the customer. Please try again.', 'danger');
   } finally {
